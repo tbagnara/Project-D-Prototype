@@ -44,8 +44,27 @@ public class PlayerController : MonoBehaviour
 
     void HandleMoving()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxis("Horizontal");
+        float moveX = 0;
+        if (inputX < 0)
+        {
+            moveX = -1;
+        }
+        else if (inputX > 0)
+        {
+            moveX = 1;
+        }
+
+        float inputZ = Input.GetAxis("Vertical");
+        float moveZ = 0;
+        if (inputZ < 0)
+        {
+            moveZ = -1;
+        }
+        else if (inputZ > 0)
+        {
+            moveZ = 1;
+        }
         if (controller.isGrounded && verticalVelocity < 0)
         {
             verticalVelocity = -1f;
@@ -55,5 +74,7 @@ public class PlayerController : MonoBehaviour
         verticalVelocity += gravity * Time.deltaTime;
         move.y = verticalVelocity;
         controller.Move(move * Time.deltaTime);
+        Debug.Log($"X: {moveX}, Z: {moveZ}");
     }
+    
 }
