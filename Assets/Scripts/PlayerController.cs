@@ -7,8 +7,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform flashlight1;
     [SerializeField] private float mouseSensitivity = 2f;
     [SerializeField] private float speed = 3;
-    private float maxLookAngle = 85f;
     private CharacterController controller;
+    private float verticalVelocity;
+
+    private float maxLookAngle = 85f;
+    public float gravity = -9.81f;
+    
     private float verticalRotation = 0f;
     void Start()
     {
@@ -41,8 +45,14 @@ public class PlayerController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        controller.Move(move.normalized * speed * Time.deltaTime);
+        if (controller.isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -1f;
+        }
+        
+        Vector3 move = (transform.right * moveX + transform.forward * moveZ).normalized * speed;
+        verticalVelocity += gravity * Time.deltaTime;
+        move.y = verticalVelocity;
+        controller.Move(move * Time.deltaTime);
     }
 }
