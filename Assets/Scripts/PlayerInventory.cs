@@ -1,15 +1,15 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
+using System;
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private Light flashlight1;
     [SerializeField] private GameObject rock;
     [SerializeField] private Transform playerCamera;
+    public event Action OnFail;
     private int slot = 1;
     private int numberOfStones = 10;
     public float batteryLife = 100;
+
     void Start()
     {
         
@@ -90,6 +90,7 @@ public class PlayerInventory : MonoBehaviour
         if (batteryLife <= 0)
         {
             flashlight1.enabled = false;
+            OnFail?.Invoke();
         }
     }
 
