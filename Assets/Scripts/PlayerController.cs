@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform playerCamera;
-    [SerializeField] private Transform flashlight;
+    [SerializeField] private Transform flashlight1;
     [SerializeField] private float mouseSensitivity = 2f;
     [SerializeField] private float speed = 3;
     private float maxLookAngle = 85f;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
         playerCamera.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
-        flashlight.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        flashlight1.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
 
         // Rotate the player body horizontally
         transform.Rotate(Vector3.up * mouseX);
